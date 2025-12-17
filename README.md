@@ -82,7 +82,17 @@ ozadju. Opravilo se izvede z uporabo OneTimeWorkRequest z začetno zakasnitvijo,
 kar omogoča jasen prikaz izvajanja opravila tudi takrat, ko aplikacija ni več
 aktivna.
 
-### Primer kode - klasa myWorker:
+### Obravnava izjem
+
+V demo aplikaciji so morebitne izjeme obravnavane v razredu MyWorker z
+uporabo bloka try-catch. V primeru, da med izvajanjem opravila pride do
+napake, se opravilo zaključi z rezultatom ***Result.failure()***.
+
+Na ta način se zagotovi, da se aplikacija ob napaki ne sesuje, WorkManager
+pa prejme informacijo, da je bilo opravilo neuspešno zaključeno, kar
+predstavlja pravilno in nadzorovano obravnavo izjem.
+
+### Primer kode - klasa MyWorker:
 ```kotlin
 class MyWorker(
     private val context: Context,
@@ -124,6 +134,10 @@ služi za periodično pridobivanje vremenskih podatkov iz zunanjega API-ja
 V aplikaciji je implementiran poseben razred ***WeatherWorker***, ki razširja
 CoroutineWorker in vsebuje logiko za pridobivanje podatkov iz API-ja ter
 prikaz sistemskega obvestila z vremenskimi informacijami.
+
+Celotna aplikacija AirPin je objavljena v ločenem GitHub repozitoriju.
+V tem repozitoriju je namenoma vključen le izsek kode (mapa airpin_example), ki prikazuje uporabo
+knjižnice WorkManager, saj je to del, ki je relevanten za obravnavano temo.
 
 ### Zaslonska slika - primer delovanja
 ![WorkManager AirPin](airpin-example/airpin_notification.jpg)
